@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FVDEØUT.CAL</title>
   <style>
     * {
@@ -23,10 +23,12 @@
     .hero {
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       background: radial-gradient(#111, #000);
       text-align: center;
+      padding: 2rem;
     }
     .hero h1 {
       font-size: 4rem;
@@ -39,6 +41,7 @@
     .btn {
       padding: 12px 24px;
       border: 1px solid #fff;
+      margin-top: 1rem;
       transition: 0.3s;
     }
     .btn:hover {
@@ -47,12 +50,9 @@
     }
     .about {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       padding: 4rem 2rem;
-    }
-    .about-video {
-      flex: 1;
-      min-width: 300px;
+      background: #111;
     }
     .about-video video {
       width: 100%;
@@ -60,13 +60,12 @@
       border-radius: 8px;
     }
     .about-text {
-      flex: 1;
-      padding: 2rem;
+      padding: 2rem 0;
       font-size: 1.1rem;
     }
     .events {
       padding: 4rem 2rem;
-      background: #111;
+      background: #000;
       text-align: center;
     }
     .event-grid {
@@ -90,12 +89,12 @@
     }
     .sound {
       padding: 4rem 2rem;
-      background: #000;
+      background: #111;
       text-align: center;
     }
     footer {
       padding: 2rem;
-      background: #111;
+      background: #000;
       text-align: center;
     }
     .socials {
@@ -121,13 +120,14 @@
 
   <section class="about" id="about">
     <div class="about-video">
-      <video autoplay loop muted>
-        <source src="assets/mix/club_intro.mp4" type="video/mp4" />
+      <video autoplay loop muted playsinline>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
     </div>
     <div class="about-text">
       <h2>We don’t do events. We engineer <em>experiences.</em></h2>
-      <p>FVDEØUT.CAL is your gateway to curated clubbing chaos.<br />
+      <p>FVDEØUT.CAL is your gateway to curated clubbing chaos.<br>
       Techno. House. Experimental. No rules, just energy.</p>
     </div>
   </section>
@@ -139,14 +139,14 @@
         <h3>✹ FVD.RITUAL</h3>
         <p>Mumbai | 26.04.25</p>
         <p>Lineup: NASH | Xæon | Sifon</p>
-        <a href="#">RSVP</a>
+        <a href="#" class="btn">RSVP</a>
       </div>
     </div>
   </section>
 
   <section class="sound">
     <h2>PRESS PLAY. GET LOST.</h2>
-    <iframe src="https://open.spotify.com/embed/playlist/your-playlist-id" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6VdMW310YC7" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
   </section>
 
   <footer>
