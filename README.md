@@ -5,142 +5,184 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FVDEØUT.CAL</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    :root {
+      --black: #000000;
+      --dark-gray: #111111;
+      --white: #ffffff;
+      --highlight: #ff0055;
+      --accent: #00fff7;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Orbitron', sans-serif;
+      background-color: var(--black);
+      color: var(--white);
       overflow-x: hidden;
     }
+
     a {
-      color: #fff;
       text-decoration: none;
+      color: inherit;
     }
+
     .hero {
+      width: 100vw;
       height: 100vh;
+      background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(#111, #000);
+      flex-direction: column;
       text-align: center;
       padding: 2rem;
     }
+
     .hero h1 {
-      font-size: 4rem;
-      letter-spacing: 6px;
+      font-size: 10vw;
+      letter-spacing: 5px;
+      color: var(--highlight);
     }
+
     .hero p {
-      font-size: 1.2rem;
-      margin: 1rem 0;
-    }
-    .btn {
-      padding: 12px 24px;
-      border: 1px solid #fff;
+      font-size: 4vw;
       margin-top: 1rem;
-      transition: 0.3s;
+      color: var(--white);
     }
+
+    .btn {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: 2px solid var(--white);
+      background: transparent;
+      color: var(--white);
+      transition: all 0.3s ease;
+    }
+
     .btn:hover {
-      background: #fff;
-      color: #000;
+      background: var(--white);
+      color: var(--black);
     }
+
     .about {
+      padding: 5vw;
+      background: var(--dark-gray);
       display: flex;
       flex-direction: column;
-      padding: 4rem 2rem;
-      background: #111;
-    }
-    .about-video video {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    .about-text {
-      padding: 2rem 0;
-      font-size: 1.1rem;
-    }
-    .events {
-      padding: 4rem 2rem;
-      background: #000;
-      text-align: center;
-    }
-    .event-grid {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
       gap: 2rem;
-      margin-top: 2rem;
     }
+
+    .about video {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .about h2 {
+      font-size: 6vw;
+      color: var(--accent);
+    }
+
+    .about p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--white);
+    }
+
+    .events, .sound, footer {
+      padding: 5vw;
+      text-align: center;
+    }
+
+    .events h2, .sound h2 {
+      font-size: 2rem;
+      color: var(--highlight);
+      margin-bottom: 2rem;
+    }
+
     .event-card {
-      background: #222;
+      background: #1a1a1a;
+      border: 1px solid #333;
       padding: 2rem;
-      border: 1px solid #444;
       border-radius: 8px;
-      width: 300px;
-      transition: 0.3s;
+      max-width: 400px;
+      margin: 0 auto;
     }
-    .event-card:hover {
-      background: #fff;
-      color: #000;
+
+    .event-card h3 {
+      font-size: 1.5rem;
+      color: var(--accent);
     }
-    .sound {
-      padding: 4rem 2rem;
-      background: #111;
-      text-align: center;
+
+    .event-card p {
+      margin: 0.5rem 0;
     }
-    footer {
-      padding: 2rem;
-      background: #000;
-      text-align: center;
+
+    .sound iframe {
+      max-width: 100%;
+      border-radius: 8px;
     }
-    .socials {
-      margin: 1rem 0;
+
+    footer p {
+      margin-top: 1rem;
+      color: #888;
     }
+
     .socials a {
       margin: 0 1rem;
-      transition: 0.2s;
+      color: var(--white);
+      transition: color 0.3s;
     }
+
     .socials a:hover {
-      color: #0ff;
+      color: var(--accent);
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 5vw; }
+      .hero p { font-size: 2vw; }
+      .about {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .about video, .about .text {
+        width: 48%;
+      }
     }
   </style>
 </head>
 <body>
   <section class="hero">
-    <div class="hero-text">
-      <h1>FVDEØUT.CAL</h1>
-      <p>IMMERSIVE. UNFORGETTABLE. UNDERGROUND.</p>
-      <a href="#about" class="btn">ENTER THE VOID</a>
-    </div>
+    <h1>FVDEØUT.CAL</h1>
+    <p>IMMERSIVE. UNFORGETTABLE. UNDERGROUND.</p>
+    <a href="#about" class="btn">ENTER THE VOID</a>
   </section>
 
   <section class="about" id="about">
-    <div class="about-video">
-      <video autoplay loop muted playsinline>
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <div class="about-text">
-      <h2>We don’t do events. We engineer <em>experiences.</em></h2>
-      <p>FVDEØUT.CAL is your gateway to curated clubbing chaos.<br>
-      Techno. House. Experimental. No rules, just energy.</p>
+    <video autoplay muted loop playsinline>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    </video>
+    <div class="text">
+      <h2>We don’t do events. We engineer <em>experiences</em>.</h2>
+      <p>FVDEØUT.CAL is your gateway to curated clubbing chaos. Techno. House. Experimental. No rules, just energy.</p>
     </div>
   </section>
 
   <section class="events">
     <h2>Upcoming Events</h2>
-    <div class="event-grid">
-      <div class="event-card">
-        <h3>✹ FVD.RITUAL</h3>
-        <p>Mumbai | 26.04.25</p>
-        <p>Lineup: NASH | Xæon | Sifon</p>
-        <a href="#" class="btn">RSVP</a>
-      </div>
+    <div class="event-card">
+      <h3>✹ FVD.RITUAL</h3>
+      <p>Mumbai | 26.04.25</p>
+      <p>Lineup: NASH | Xæon | Sifon</p>
+      <a href="#" class="btn">RSVP</a>
     </div>
   </section>
 
@@ -150,7 +192,6 @@
   </section>
 
   <footer>
-    <p>Stay plugged in.</p>
     <div class="socials">
       <a href="#">Instagram</a>
       <a href="#">X</a>
