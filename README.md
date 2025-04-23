@@ -8,11 +8,11 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
     :root {
-      --black: #000000;
-      --dark-gray: #111111;
-      --white: #ffffff;
-      --highlight: #ff0055;
-      --accent: #00fff7;
+      --black: #000;
+      --gray: #111;
+      --white: #fff;
+      --hotpink: #ff007f;
+      --aqua: #00ffe0;
     }
 
     * {
@@ -21,9 +21,9 @@
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
       font-family: 'Orbitron', sans-serif;
-      background-color: var(--black);
+      background: var(--black);
       color: var(--white);
       overflow-x: hidden;
     }
@@ -34,36 +34,35 @@
     }
 
     .hero {
-      width: 100vw;
       height: 100vh;
-      background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+      background: linear-gradient(to bottom, #000, #111);
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
       padding: 2rem;
     }
 
     .hero h1 {
-      font-size: 10vw;
-      letter-spacing: 5px;
-      color: var(--highlight);
+      font-size: clamp(2rem, 10vw, 6rem);
+      color: var(--hotpink);
+      letter-spacing: 6px;
     }
 
     .hero p {
-      font-size: 4vw;
-      margin-top: 1rem;
-      color: var(--white);
+      font-size: clamp(1rem, 4vw, 2rem);
+      margin: 1rem 0;
     }
 
     .btn {
-      margin-top: 2rem;
+      margin-top: 1rem;
       padding: 1rem 2rem;
-      font-size: 1.2rem;
       border: 2px solid var(--white);
+      font-size: 1rem;
       background: transparent;
       color: var(--white);
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
@@ -73,52 +72,52 @@
     }
 
     .about {
-      padding: 5vw;
-      background: var(--dark-gray);
       display: flex;
       flex-direction: column;
+      padding: 3rem 1rem;
+      background: var(--gray);
       gap: 2rem;
     }
 
     .about video {
       width: 100%;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
-    .about h2 {
-      font-size: 6vw;
-      color: var(--accent);
+    .about .text h2 {
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      color: var(--aqua);
     }
 
-    .about p {
-      font-size: 1.2rem;
+    .about .text p {
+      font-size: 1.1rem;
+      margin-top: 1rem;
       line-height: 1.6;
-      color: var(--white);
     }
 
     .events, .sound, footer {
-      padding: 5vw;
+      padding: 3rem 1rem;
       text-align: center;
     }
 
     .events h2, .sound h2 {
-      font-size: 2rem;
-      color: var(--highlight);
+      color: var(--hotpink);
       margin-bottom: 2rem;
+      font-size: 2rem;
     }
 
     .event-card {
-      background: #1a1a1a;
+      background: #1c1c1c;
       border: 1px solid #333;
       padding: 2rem;
-      border-radius: 8px;
+      border-radius: 10px;
       max-width: 400px;
       margin: 0 auto;
     }
 
     .event-card h3 {
       font-size: 1.5rem;
-      color: var(--accent);
+      color: var(--aqua);
     }
 
     .event-card p {
@@ -126,13 +125,15 @@
     }
 
     .sound iframe {
-      max-width: 100%;
+      width: 100%;
+      max-width: 500px;
+      height: 80px;
+      border: none;
       border-radius: 8px;
     }
 
-    footer p {
-      margin-top: 1rem;
-      color: #888;
+    footer .socials {
+      margin: 1rem 0;
     }
 
     .socials a {
@@ -142,16 +143,20 @@
     }
 
     .socials a:hover {
-      color: var(--accent);
+      color: var(--aqua);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      color: #888;
+      margin-top: 1rem;
     }
 
     @media (min-width: 768px) {
-      .hero h1 { font-size: 5vw; }
-      .hero p { font-size: 2vw; }
       .about {
         flex-direction: row;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
       }
       .about video, .about .text {
         width: 48%;
@@ -188,7 +193,7 @@
 
   <section class="sound">
     <h2>PRESS PLAY. GET LOST.</h2>
-    <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6VdMW310YC7" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX6VdMW310YC7" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
   </section>
 
   <footer>
