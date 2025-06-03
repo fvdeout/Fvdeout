@@ -16,8 +16,7 @@
     body, html {
       height: 100%;
       font-family: 'Poppins', sans-serif;
-      background: url('your-background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-color: #000;
       color: #fff;
       line-height: 1.6;
     }
@@ -28,7 +27,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
       z-index: 0;
     }
 
@@ -46,7 +44,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.6);
+      background: #111;
       position: fixed;
       top: 0;
       width: 100%;
@@ -59,43 +57,12 @@
       color: #00ffe7;
     }
 
-    nav.top-nav .social-icon {
+    nav.top-nav .social-icon,
+    nav.top-nav .cart-icon {
       cursor: pointer;
       font-size: 1.2rem;
       color: #fff;
       margin-left: 1rem;
-    }
-
-    nav.top-nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-
-    nav.top-nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    @media (max-width: 768px) {
-      nav.top-nav ul {
-        display: none;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.95);
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 200px;
-      }
-
-      nav.top-nav ul.show {
-        display: flex;
-      }
-
-      nav.top-nav .menu-toggle {
-        display: block;
-      }
     }
 
     /* Hero Section */
@@ -119,7 +86,7 @@
 
     .btn {
       display: inline-block;
-      background: #fff;
+      background: #00ffe7;
       color: #000;
       padding: 0.8rem 2rem;
       border-radius: 30px;
@@ -129,7 +96,7 @@
     }
 
     .btn:hover {
-      background: #f0f0f0;
+      background: #0fffc1;
       transform: translateY(-2px);
     }
 
@@ -198,8 +165,8 @@
       color: #666;
     }
 
-    /* Social Media Popup */
-    .social-popup {
+    /* Social Media & Product Popups */
+    .popup {
       display: none;
       position: fixed;
       top: 0;
@@ -210,17 +177,22 @@
       z-index: 9999;
       justify-content: center;
       align-items: center;
+      overflow-y: auto;
     }
 
-    .social-content {
+    .popup-content {
       background: #111;
       color: #fff;
       padding: 2rem;
       border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
       text-align: center;
+      margin: 2rem auto;
     }
 
-    .social-content .close-btn {
+    .popup-close {
       position: absolute;
       top: 10px;
       right: 20px;
@@ -229,23 +201,13 @@
       cursor: pointer;
     }
 
-    .social-content h2 {
+    .popup img {
+      max-width: 100%;
+      border-radius: 8px;
       margin-bottom: 1rem;
     }
 
-    .social-content a.btn {
-      display: inline-block;
-      margin-top: 1rem;
-    }
-
     /* Shopping Cart Modal */
-    .cart-icon {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #fff;
-      margin-left: 1rem;
-    }
-
     .cart-modal {
       display: none;
       position: fixed;
@@ -300,15 +262,14 @@
 </head>
 <body>
 
-  <div class="overlay"></div>
-
-  <!-- Top Navigation -->
-  <nav class="top-nav">
-    <div class="logo">Sycko</div>
-    <div class="social-icon" onclick="openSocialPopup()">📷</div>
-  </nav>
-
   <div class="content">
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+      <div class="logo">Sycko</div>
+      <div class="social-icon" onclick="openSocialPopup()">📷</div>
+      <div class="cart-icon" onclick="toggleCart()">🛒 (<span id="cart-count">0</span>)</div>
+    </nav>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -346,7 +307,7 @@
 
     </section>
 
-    <!-- Popups -->
+    <!-- Product Popups -->
     <div id="popup1" class="popup">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup1')">&times;</span>
@@ -356,6 +317,7 @@
         <p>Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</p>
         <p><strong>Sizes:</strong> Small, Medium, Large</p>
         <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
+        <button onclick="addToCart('Stranger Things T-Shirt', 799)">Add to Cart</button>
       </div>
     </div>
 
@@ -368,17 +330,25 @@
         <p>Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</p>
         <p><strong>Sizes:</strong> Small, Medium, Large</p>
         <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
+        <button onclick="addToCart('Minecraft T-Shirt', 749)">Add to Cart</button>
       </div>
     </div>
 
     <!-- Instagram Popup -->
-    <div id="socialPopup" class="social-popup">
-      <div class="social-content">
-        <span class="close-btn" onclick="closeSocialPopup()">&times;</span>
+    <div id="socialPopup" class="popup">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closeSocialPopup()">&times;</span>
         <h2>Follow Us on Instagram</h2>
         <p>@syckofashion</p>
         <a href="https://instagram.com/syckofashion" target="_blank" class="btn">Visit Instagram</a>
       </div>
+    </div>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+      <h3>Your Cart</h3>
+      <div id="cartItems"></div>
+      <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
     </div>
 
     <!-- Footer -->
@@ -407,6 +377,48 @@
     function closeSocialPopup() {
       document.getElementById("socialPopup").style.display = "none";
     }
+
+    // Shopping Cart Logic
+    let cart = [];
+
+    function addToCart(productName, price) {
+      cart.push({ name: productName, price: price });
+      updateCart();
+      openCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+      const cartCount = document.getElementById("cart-count");
+
+      cartItems.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>₹${item.price}</span></div>`;
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() {
+      const cartModal = document.getElementById("cartModal");
+      cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
+    }
+
+    function openCart() {
+      document.getElementById("cartModal").style.display = "block";
+    }
+
+    window.addEventListener("click", function(e){
+      const cartModal = document.getElementById("cartModal");
+      if (e.target == cartModal) {
+        cartModal.style.display = "none";
+      }
+    });
   </script>
 
 </body>
