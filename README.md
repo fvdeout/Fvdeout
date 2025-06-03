@@ -1,3 +1,4 @@
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,6 +121,20 @@
       border-radius: 10px;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .product-card::before {
+      content: 'New Arrival';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ff4ecd;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: bold;
     }
 
     .product-card img {
@@ -148,6 +163,52 @@
       font-size: 0.9rem;
       color: #aaa;
       padding: 0 1rem 1rem;
+    }
+
+    /* Product Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 800px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* Sizes and Price */
+    .sizes {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff4ecd;
     }
 
     /* Instagram Section */
@@ -291,44 +352,48 @@
   <section id="products" class="products">
     <h2 class="section-title">Featured Collections</h2>
     <div class="product-grid">
-      <div class="product-card">
-        <img src="product1.jpg" alt="Glow Hoodie" />
-        <h3>Glow Hoodie</h3>
-        <p>$99</p>
-        <p class="caption">Streetwear with a glow-in-the-dark twist.</p>
+      <!-- Product 1 -->
+      <div class="product-card" onclick="openPopup('popup1')">
+        <img src="https://via.placeholder.com/300x400?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
+        <h3>Stranger Things T-Shirt</h3>
+        <p class="price">₹799</p>
+        <p class="caption">Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</p>
       </div>
-      <div class="product-card">
-        <img src="product2.jpg" alt="Chrome Joggers" />
-        <h3>Chrome Joggers</h3>
-        <p>$89</p>
-        <p class="caption">Shiny, stylish, and ultra-comfy.</p>
-      </div>
-      <div class="product-card">
-        <img src="product3.jpg" alt="Neon Logo Tee" />
-        <h3>Neon Logo Tee</h3>
-        <p>$49</p>
-        <p class="caption">Bold colors that turn heads.</p>
-      </div>
-      <div class="product-card">
-        <img src="product4.jpg" alt="Mirror Sneakers" />
-        <h3>Mirror Sneakers</h3>
-        <p>$129</p>
-        <p class="caption">Step into the future of footwear.</p>
-      </div>
-      <div class="product-card">
-        <img src="product5.jpg" alt="Sleek Bomber" />
-        <h3>Sleek Bomber</h3>
-        <p>$149</p>
-        <p class="caption">A modern take on classic outerwear.</p>
-      </div>
-      <div class="product-card">
-        <img src="product6.jpg" alt="Cyber Denim" />
-        <h3>Cyber Denim</h3>
-        <p>$139</p>
-        <p class="caption">Edgy, futuristic, and totally Sycko.</p>
+
+      <!-- Product 2 -->
+      <div class="product-card" onclick="openPopup('popup2')">
+        <img src="https://via.placeholder.com/300x400?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
+        <h3>Minecraft T-Shirt</h3>
+        <p class="price">₹749</p>
+        <p class="caption">Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</p>
       </div>
     </div>
   </section>
+
+  <!-- Popups -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <span class="popup-close" onclick="closePopup('popup1')">&times;</span>
+      <img src="https://via.placeholder.com/600x800?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
+      <h2>Stranger Things T-Shirt</h2>
+      <p class="price">₹799</p>
+      <p>Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</p>
+      <p><strong>Sizes:</strong> Small, Medium, Large</p>
+      <p><strong>Note:</strong> We accept orders only through Instagram.</p>
+    </div>
+  </div>
+
+  <div id="popup2" class="popup">
+    <div class="popup-content">
+      <span class="popup-close" onclick="closePopup('popup2')">&times;</span>
+      <img src="https://via.placeholder.com/600x800?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
+      <h2>Minecraft T-Shirt</h2>
+      <p class="price">₹749</p>
+      <p>Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</p>
+      <p><strong>Sizes:</strong> Small, Medium, Large</p>
+      <p><strong>Note:</strong> We accept orders only through Instagram.</p>
+    </div>
+  </div>
 
   <!-- Instagram CTA -->
   <section class="instagram">
@@ -356,21 +421,31 @@
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Sycko. All rights reserved.</p>
+  </footer>
+
   <!-- Font Awesome Icons -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 
-  <!-- JavaScript for Chatbot -->
+  <!-- JavaScript for Popups and Chatbot -->
   <script>
+    // Popup Functionality
+    function openPopup(popupId) {
+      document.getElementById(popupId).style.display = 'flex';
+    }
+
+    function closePopup(popupId) {
+      document.getElementById(popupId).style.display = 'none';
+    }
+
+    // Chatbot Toggle
     document.getElementById('chatbot-toggle').addEventListener('click', function () {
       const chatbotWindow = document.getElementById('chatbot-window');
       chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
     });
   </script>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Sycko. All rights reserved.</p>
-  </footer>
 
 </body>
 </html>
