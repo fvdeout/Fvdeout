@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
     body, html {
       height: 100%;
       font-family: 'Poppins', sans-serif;
-      background: url('https://images.unsplash.com/photo-1606079942367-d4a3875f5b9c?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background: url('your-background.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
       line-height: 1.6;
@@ -27,7 +28,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       z-index: 0;
     }
 
@@ -58,10 +59,11 @@
       color: #00ffe7;
     }
 
-    nav.top-nav .menu-toggle {
-      display: none;
-      font-size: 1.5rem;
+    nav.top-nav .social-icon {
       cursor: pointer;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-left: 1rem;
     }
 
     nav.top-nav ul {
@@ -196,6 +198,46 @@
       color: #666;
     }
 
+    /* Social Media Popup */
+    .social-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social-content {
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .social-content .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .social-content h2 {
+      margin-bottom: 1rem;
+    }
+
+    .social-content a.btn {
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
     /* Shopping Cart Modal */
     .cart-icon {
       cursor: pointer;
@@ -227,48 +269,6 @@
       text-align: right;
       margin-top: 1rem;
       font-weight: bold;
-    }
-
-    /* Popup Styles */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      overflow-y: auto;
-    }
-
-    .popup-content {
-      background: #111;
-      color: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 600px;
-      width: 90%;
-      position: relative;
-      text-align: center;
-      margin: 2rem auto;
-    }
-
-    .popup-close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 1.5rem;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .popup img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-bottom: 1rem;
     }
 
     footer.footer {
@@ -305,12 +305,7 @@
   <!-- Top Navigation -->
   <nav class="top-nav">
     <div class="logo">Sycko</div>
-    <div class="cart-icon" onclick="toggleCart()">🛒 (<span id="cart-count">0</span>)</div>
-    <ul id="menu">
-      <li><a href="#products">Shop</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+    <div class="social-icon" onclick="openSocialPopup()">📷</div>
   </nav>
 
   <div class="content">
@@ -324,13 +319,14 @@
 
     <!-- Products -->
     <section id="products" class="products">
+
       <!-- Product 1 -->
       <div class="product-card" onclick="openPopup('popup1')">
-        <img src="https://via.placeholder.com/600x800?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
+        <img src="product1.jpg" alt="Stranger Things T-Shirt" />
         <div class="product-info">
           <h3>Stranger Things T-Shirt</h3>
           <div class="price">₹799</div>
-          <div class="caption">Elevated comfort in premium bio-cotton, inspired by the Upside Down.</div>
+          <div class="caption">Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</div>
           <div class="sizes">Sizes: Small | Medium | Large</div>
           <div class="note">Order via Instagram only</div>
         </div>
@@ -338,49 +334,51 @@
 
       <!-- Product 2 -->
       <div class="product-card" onclick="openPopup('popup2')">
-        <img src="https://via.placeholder.com/600x800?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
+        <img src="product2.jpg" alt="Minecraft T-Shirt" />
         <div class="product-info">
           <h3>Minecraft T-Shirt</h3>
           <div class="price">₹749</div>
-          <div class="caption">Pixel-perfect design with breathable comfort. Crafted to stand out.</div>
+          <div class="caption">Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</div>
           <div class="sizes">Sizes: Small | Medium | Large</div>
           <div class="note">Order via Instagram only</div>
         </div>
       </div>
+
     </section>
 
     <!-- Popups -->
     <div id="popup1" class="popup">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup1')">&times;</span>
-        <img src="https://via.placeholder.com/600x800?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
+        <img src="product1.jpg" alt="Stranger Things T-Shirt" />
         <h2>Stranger Things T-Shirt</h2>
         <p class="price">₹799</p>
-        <p>Elevated comfort in premium bio-cotton, inspired by the Upside Down.</p>
+        <p>Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</p>
         <p><strong>Sizes:</strong> Small, Medium, Large</p>
         <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
-        <button onclick="addToCart('Stranger Things T-Shirt', 799)">Add to Cart</button>
       </div>
     </div>
 
     <div id="popup2" class="popup">
       <div class="popup-content">
         <span class="popup-close" onclick="closePopup('popup2')">&times;</span>
-        <img src="https://via.placeholder.com/600x800?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
+        <img src="product2.jpg" alt="Minecraft T-Shirt" />
         <h2>Minecraft T-Shirt</h2>
         <p class="price">₹749</p>
-        <p>Pixel-perfect design with breathable comfort. Crafted to stand out.</p>
+        <p>Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</p>
         <p><strong>Sizes:</strong> Small, Medium, Large</p>
         <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
-        <button onclick="addToCart('Minecraft T-Shirt', 749)">Add to Cart</button>
       </div>
     </div>
 
-    <!-- Shopping Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-      <h3>Your Cart</h3>
-      <div id="cartItems"></div>
-      <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+    <!-- Instagram Popup -->
+    <div id="socialPopup" class="social-popup">
+      <div class="social-content">
+        <span class="close-btn" onclick="closeSocialPopup()">&times;</span>
+        <h2>Follow Us on Instagram</h2>
+        <p>@syckofashion</p>
+        <a href="https://instagram.com/syckofashion" target="_blank" class="btn">Visit Instagram</a>
+      </div>
     </div>
 
     <!-- Footer -->
@@ -392,13 +390,7 @@
 
   <!-- JavaScript -->
   <script>
-    // Mobile Menu Toggle
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.classList.toggle("show");
-    }
-
-    // Popup Functions
+    // Product Popups
     function openPopup(id) {
       document.getElementById(id).style.display = "flex";
     }
@@ -407,47 +399,14 @@
       document.getElementById(id).style.display = "none";
     }
 
-    // Shopping Cart Logic
-    let cart = [];
-
-    function addToCart(productName, price) {
-      cart.push({ name: productName, price: price });
-      updateCart();
-      openCart();
+    // Instagram Popup
+    function openSocialPopup() {
+      document.getElementById("socialPopup").style.display = "flex";
     }
 
-    function updateCart() {
-      const cartItems = document.getElementById("cartItems");
-      const cartTotal = document.getElementById("cartTotal");
-      const cartCount = document.getElementById("cart-count");
-
-      cartItems.innerHTML = "";
-      let total = 0;
-
-      cart.forEach((item, index) => {
-        total += item.price;
-        cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>₹${item.price}</span></div>`;
-      });
-
-      cartTotal.textContent = total.toFixed(2);
-      cartCount.textContent = cart.length;
+    function closeSocialPopup() {
+      document.getElementById("socialPopup").style.display = "none";
     }
-
-    function toggleCart() {
-      const cartModal = document.getElementById("cartModal");
-      cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
-    }
-
-    function openCart() {
-      document.getElementById("cartModal").style.display = "block";
-    }
-
-    window.addEventListener("click", function(e){
-      const cartModal = document.getElementById("cartModal");
-      if (e.target == cartModal) {
-        cartModal.style.display = "none";
-      }
-    });
   </script>
 
 </body>
