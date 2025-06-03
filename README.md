@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +21,7 @@
       background-size: cover;
       color: #fff;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     .overlay {
@@ -102,9 +104,9 @@
       background: #0fffc1;
     }
 
-    /* Product Page Only */
+    /* Products Grid */
     .products {
-      display: none;
+      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
       padding: 2rem;
@@ -140,6 +142,7 @@
     }
 
     .product-info select,
+    .product-info input[type="number"],
     .product-info button {
       margin-top: 1rem;
       padding: 0.5rem 1rem;
@@ -219,7 +222,6 @@
       margin-top: 1rem;
     }
 
-    /* Footer */
     footer.footer {
       margin-top: 4rem;
       text-align: center;
@@ -268,14 +270,6 @@
       </div>
     </section>
 
-    <!-- Shopping Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-      <h3>Your Cart</h3>
-      <div id="cartItems"></div>
-      <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
-      <div class="order-note">Order only via Instagram DM</div>
-    </div>
-
     <!-- Footer -->
     <footer class="footer">
       Follow us on Instagram: <a href="https://instagram.com/syckofashion" target="_blank">@syckofashion</a>
@@ -285,6 +279,14 @@
 
   <!-- Floating Cart Icon -->
   <div class="cart-icon" onclick="toggleCart()">🛒 (<span id="cart-count">0</span>)</div>
+
+  <!-- Shopping Cart Modal -->
+  <div id="cartModal" class="cart-modal">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+    <div class="order-note">Order only via Instagram DM</div>
+  </div>
 
   <script>
     // Product Data
@@ -330,9 +332,7 @@
 
     window.onload = () => {
       const savedCart = localStorage.getItem("cart");
-      if (savedCart) {
-        cart = JSON.parse(savedCart);
-      }
+      if (savedCart) cart = JSON.parse(savedCart);
       renderProducts();
       updateCart();
     };
@@ -353,6 +353,7 @@
       products.forEach(product => {
         const div = document.createElement("div");
         div.className = "product-card";
+
         div.innerHTML = `
           <img src="${product.image}" alt="${product.name}">
           <div class="product-info">
@@ -363,7 +364,10 @@
               <option value="medium">Medium</option>
               <option value="large">Large</option>
             </select>
-            <button onclick="addToCart(${product.id}, '${product.name}', ${product.price}, document.getElementById('size-${product.id}').value)">Add to Cart</button>
+            <br>
+            <input type="number" id="qty-${product.id}" value="1" min="1" style="margin-top: 0.5rem; width: 60px; border-radius: 30px; text-align: center; border: none; background: #222; color: #fff;">
+            <br>
+            <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
             <div class="note">Only via Instagram</div>
           </div>
         `;
@@ -371,16 +375,20 @@
       });
     }
 
-    function addToCart(id, name, price, size) {
+    function addToCart(id, name, price) {
+      const size = document.getElementById(`size-${id}`).value;
+      const qty = parseInt(document.getElementById(`qty-${id}`).value);
+
       const existing = cart.find(item => item.id === id && item.size === size);
       if (existing) {
-        existing.qty++;
+        existing.qty += qty;
       } else {
-        cart.push({ id, name, price, size, qty: 1 });
+        cart.push({ id, name, price, size, qty });
       }
+
       saveCart();
       updateCart();
-      openCart();
+      toggleCart(); // Auto-open cart
     }
 
     function updateCart() {
@@ -395,11 +403,10 @@
         total += item.price * item.qty;
         cartItems.innerHTML += `
           <div class="cart-item">
-            <span>${item.name}<br><small>Size: ${item.size}</small></span>
+            <span>${item.name}<br><small>Size: ${item.size} | Qty: ${item.qty}</small></span>
             <div class="cart-actions">
-              <button onclick="changeQty(${index}, 1)">+</button>
-              x${item.qty}
               <button onclick="changeQty(${index}, -1)">−</button>
+              <button onclick="changeQty(${index}, 1)">+</button>
               <button onclick="removeItem(${index})">🗑️</button>
             </div>
           </div>
@@ -428,13 +435,12 @@
       cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
     }
 
-    function openCart() {
-      document.getElementById("cartModal").style.display = "block";
+    function saveCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
     // Loader
     window.addEventListener("load", () => {
-      document.getElementById("preloader").style.animation = "fadeOut 1s ease forwards";
       setTimeout(() => {
         document.getElementById("preloader").style.display = "none";
         document.getElementById("mainContent").classList.remove("hide");
