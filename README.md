@@ -11,6 +11,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
     body, html {
@@ -18,7 +19,10 @@
       font-family: 'Poppins', sans-serif;
       background-color: #000;
       color: #fff;
-      line-height: 1.6;
+      overflow-x: hidden;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 0.5s ease;
     }
 
     .overlay {
@@ -27,104 +31,134 @@
       left: 0;
       width: 100%;
       height: 100%;
+      background: rgba(0, 0, 0, 0.6);
       z-index: 0;
     }
 
     .content {
       position: relative;
       z-index: 1;
-      max-width: 1200px;
-      margin: auto;
-      padding: 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
     }
 
-    /* Navigation */
-    nav.top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: #111;
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Preloader */
+    .preloader {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 1s ease forwards;
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    /* Upload Background */
+    .upload-bg {
+      text-align: center;
+      margin: 2rem auto;
+    }
+
+    .upload-bg input[type="file"] {
+      display: none;
+    }
+
+    .upload-bg label {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: #00ffe7;
+      color: #000;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .upload-bg label:hover {
+      background: #0fffc1;
+    }
+
+    .upload-bg button.reset-btn {
+      margin-left: 1rem;
+      background: transparent;
+      border: 1px solid #ff4ecd;
+      color: #ff4ecd;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .upload-bg button.reset-btn:hover {
+      background: #ff4ecd;
+      color: #fff;
+    }
+
+    /* Floating Cart Icon */
+    .cart-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #00ffe7;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00ffe7;
       z-index: 999;
     }
 
-    nav.top-nav .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #00ffe7;
-    }
-
-    nav.top-nav .social-icon,
-    nav.top-nav .cart-icon {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: #fff;
-      margin-left: 1rem;
-    }
-
-    /* Hero Section */
-    header.hero {
+    /* Product Filters */
+    .filters {
       text-align: center;
-      padding: 8rem 2rem 4rem;
+      margin: 2rem 0;
     }
 
-    header h1 {
-      font-size: 3rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 1rem;
+    .filters button {
+      background: transparent;
+      border: 1px solid #00ffe7;
+      color: #00ffe7;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
     }
 
-    header p {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin-bottom: 2rem;
-    }
-
-    .btn {
-      display: inline-block;
+    .filters button.active,
+    .filters button:hover {
       background: #00ffe7;
       color: #000;
-      padding: 0.8rem 2rem;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background: #0fffc1;
-      transform: translateY(-2px);
     }
 
     /* Product Grid */
     .products {
-      display: flex;
-      overflow-x: auto;
-      gap: 1.5rem;
-      padding-bottom: 1rem;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      margin-top: 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
     }
 
     .product-card {
-      min-width: 280px;
-      background: rgba(255, 255, 255, 0.05);
+      background: #111;
       border-radius: 10px;
       overflow: hidden;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-      scroll-snap-align: start;
-      transition: transform 0.2s ease;
-    }
-
-    .product-card:hover {
-      transform: scale(1.03);
+      text-align: center;
+      animation: fadeInUp 0.6s ease-in-out;
     }
 
     .product-card img {
@@ -134,11 +168,11 @@
     }
 
     .product-info {
-      padding: 1.5rem;
+      padding: 1rem;
     }
 
     .product-info h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 0.5rem;
     }
 
@@ -154,42 +188,95 @@
       margin-bottom: 1rem;
     }
 
-    .sizes {
-      font-size: 0.85rem;
-      color: #999;
+    .product-info button {
+      background: #00ffe7;
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Shopping Cart Modal */
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 80px;
+      width: 300px;
+      background: #111;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.3);
+      z-index: 999;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
       margin-bottom: 1rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.5rem;
     }
 
-    .note {
-      font-size: 0.8rem;
-      color: #666;
+    .cart-item span {
+      display: inline-block;
+      margin: 0 0.5rem;
     }
 
-    /* Social Media & Product Popups */
-    .popup {
+    .cart-actions button {
+      background: none;
+      color: #00ffe7;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .cart-total {
+      text-align: right;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .checkout-btn {
+      display: block;
+      margin-top: 1rem;
+      background: #ff4ecd;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 30px;
+      text-align: center;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background: #ff6ee2;
+    }
+
+    /* Instagram Popup */
+    .social-popup {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.9);
       z-index: 9999;
       justify-content: center;
       align-items: center;
-      overflow-y: auto;
     }
 
-    .popup-content {
+    .social-content {
       background: #111;
       color: #fff;
       padding: 2rem;
       border-radius: 10px;
-      max-width: 600px;
-      width: 90%;
-      position: relative;
       text-align: center;
-      margin: 2rem auto;
     }
 
     .popup-close {
@@ -201,155 +288,48 @@
       cursor: pointer;
     }
 
-    .popup img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-
-    /* Shopping Cart Modal */
-    .cart-modal {
-      display: none;
-      position: fixed;
-      top: 60px;
-      right: 20px;
-      width: 300px;
-      background: #111;
-      border-radius: 10px;
-      padding: 1rem;
-      box-shadow: 0 0 10px rgba(0, 255, 231, 0.3);
-      z-index: 999;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-
-    .cart-total {
-      text-align: right;
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-
     footer.footer {
-      margin-top: 4rem;
       text-align: center;
+      margin: 4rem 0 2rem;
       font-size: 0.9rem;
       color: #555;
     }
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-
-      .btn {
-        font-size: 0.9rem;
-      }
-
-      .popup-content {
-        margin: 1rem auto;
-        padding: 1rem;
-      }
-
-      .popup img {
-        width: 100%;
+    @media (max-width: 600px) {
+      .cart-modal {
+        right: 20px;
+        width: 90%;
       }
     }
   </style>
 </head>
-<body>
+<body id="page">
 
-  <div class="content">
+  <!-- Preloader -->
+  <div class="preloader" id="preloader"></div>
 
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-      <div class="logo">Sycko</div>
-      <div class="social-icon" onclick="openSocialPopup()">📷</div>
-      <div class="cart-icon" onclick="toggleCart()">🛒 (<span id="cart-count">0</span>)</div>
-    </nav>
+  <!-- Upload Background -->
+  <div class="upload-bg">
+    <label for="bgUpload">Upload Background</label>
+    <input type="file" id="bgUpload" accept="image/*" onchange="uploadBackground(this)">
+    <button class="reset-btn" onclick="resetBackground()">Reset</button>
+  </div>
 
-    <!-- Hero Section -->
-    <header class="hero">
-      <h1>Sycko</h1>
-      <p>Where luxury meets Gen Z fashion.</p>
-      <a href="#products" class="btn">Shop Now</a>
-    </header>
+  <!-- Main Content -->
+  <div class="content" id="mainContent">
+
+    <!-- Filters -->
+    <div class="filters">
+      <button onclick="filterProducts('all')" class="active">All</button>
+      <button onclick="filterProducts('small')">S</button>
+      <button onclick="filterProducts('medium')">M</button>
+      <button onclick="filterProducts('large')">L</button>
+    </div>
 
     <!-- Products -->
-    <section id="products" class="products">
-
-      <!-- Product 1 -->
-      <div class="product-card" onclick="openPopup('popup1')">
-        <img src="product1.jpg" alt="Stranger Things T-Shirt" />
-        <div class="product-info">
-          <h3>Stranger Things T-Shirt</h3>
-          <div class="price">₹799</div>
-          <div class="caption">Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</div>
-          <div class="sizes">Sizes: Small | Medium | Large</div>
-          <div class="note">Order via Instagram only</div>
-        </div>
-      </div>
-
-      <!-- Product 2 -->
-      <div class="product-card" onclick="openPopup('popup2')">
-        <img src="product2.jpg" alt="Minecraft T-Shirt" />
-        <div class="product-info">
-          <h3>Minecraft T-Shirt</h3>
-          <div class="price">₹749</div>
-          <div class="caption">Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</div>
-          <div class="sizes">Sizes: Small | Medium | Large</div>
-          <div class="note">Order via Instagram only</div>
-        </div>
-      </div>
-
+    <section class="products" id="products">
+      <!-- Filled by JS -->
     </section>
-
-    <!-- Product Popups -->
-    <div id="popup1" class="popup">
-      <div class="popup-content">
-        <span class="popup-close" onclick="closePopup('popup1')">&times;</span>
-        <img src="product1.jpg" alt="Stranger Things T-Shirt" />
-        <h2>Stranger Things T-Shirt</h2>
-        <p class="price">₹799</p>
-        <p>Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</p>
-        <p><strong>Sizes:</strong> Small, Medium, Large</p>
-        <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
-        <button onclick="addToCart('Stranger Things T-Shirt', 799)">Add to Cart</button>
-      </div>
-    </div>
-
-    <div id="popup2" class="popup">
-      <div class="popup-content">
-        <span class="popup-close" onclick="closePopup('popup2')">&times;</span>
-        <img src="product2.jpg" alt="Minecraft T-Shirt" />
-        <h2>Minecraft T-Shirt</h2>
-        <p class="price">₹749</p>
-        <p>Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</p>
-        <p><strong>Sizes:</strong> Small, Medium, Large</p>
-        <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
-        <button onclick="addToCart('Minecraft T-Shirt', 749)">Add to Cart</button>
-      </div>
-    </div>
-
-    <!-- Instagram Popup -->
-    <div id="socialPopup" class="popup">
-      <div class="popup-content">
-        <span class="popup-close" onclick="closeSocialPopup()">&times;</span>
-        <h2>Follow Us on Instagram</h2>
-        <p>@syckofashion</p>
-        <a href="https://instagram.com/syckofashion" target="_blank" class="btn">Visit Instagram</a>
-      </div>
-    </div>
-
-    <!-- Shopping Cart Modal -->
-    <div id="cartModal" class="cart-modal">
-      <h3>Your Cart</h3>
-      <div id="cartItems"></div>
-      <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -358,18 +338,195 @@
 
   </div>
 
-  <!-- JavaScript -->
+  <!-- Floating Cart Icon -->
+  <div class="cart-icon" onclick="toggleCart()">🛒 (<span id="cart-count">0</span>)</div>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="cart-modal">
+    <h3>Your Cart</h3>
+    <div id="cartItems"></div>
+    <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+    <a href="#" id="checkoutBtn" class="checkout-btn" target="_blank">Checkout (DM us on Instagram)</a>
+  </div>
+
+  <!-- Instagram Modal -->
+  <div id="socialPopup" class="social-popup">
+    <div class="social-content">
+      <span class="popup-close" onclick="closeSocialPopup()">&times;</span>
+      <h2>Follow Us on Instagram</h2>
+      <p>@syckofashion</p>
+      <a href="https://instagram.com/syckofashion" target="_blank" class="btn">Send DM</a>
+    </div>
+  </div>
+
   <script>
-    // Product Popups
-    function openPopup(id) {
-      document.getElementById(id).style.display = "flex";
+    // Product Data
+    const products = [
+      {
+        id: 1,
+        name: "Stranger Things T-Shirt",
+        price: 799,
+        caption: "Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.",
+        size: "small",
+        image: "product1.jpg"
+      },
+      {
+        id: 2,
+        name: "Minecraft T-Shirt",
+        price: 749,
+        caption: "Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.",
+        size: "medium",
+        image: "product2.jpg"
+      },
+      {
+        id: 3,
+        name: "Cyberpunk Jacket",
+        price: 1299,
+        caption: "Bold and futuristic jacket inspired by digital culture. Perfect for any streetwear look.",
+        size: "large",
+        image: "product3.jpg"
+      },
+      {
+        id: 4,
+        name: "Neon Logo Hoodie",
+        price: 899,
+        caption: "Stand out in our neon logo hoodie — ultra-comfy cotton with glowing details.",
+        size: "small",
+        image: "product4.jpg"
+      },
+      {
+        id: 5,
+        name: "Mirror Sneakers",
+        price: 1499,
+        caption: "Step into the future of footwear with these reflective mirror sneakers.",
+        size: "medium",
+        image: "product5.jpg"
+      }
+    ];
+
+    let cart = [];
+
+    window.onload = () => {
+      const savedCart = localStorage.getItem("cart");
+      if (savedCart) cart = JSON.parse(savedCart);
+
+      const savedBg = localStorage.getItem("customBg");
+      if (savedBg) document.body.style.backgroundImage = `url('${savedBg}')`;
+
+      renderProducts();
+      updateCart();
+    };
+
+    function saveCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
-    function closePopup(id) {
-      document.getElementById(id).style.display = "none";
+    function filterProducts(size) {
+      const buttons = document.querySelectorAll(".filters button");
+      buttons.forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+
+      const container = document.getElementById("products");
+      container.innerHTML = "";
+      products.filter(p => size === "all" || p.size === size).forEach(product => {
+        const div = document.createElement("div");
+        div.className = "product-card";
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <div class="price">₹${product.price}</div>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
     }
 
-    // Instagram Popup
+    function renderProducts() {
+      const container = document.getElementById("products");
+      container.innerHTML = "";
+      products.forEach(product => {
+        const div = document.createElement("div");
+        div.className = "product-card";
+        div.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <div class="price">₹${product.price}</div>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      saveCart();
+      updateCart();
+      toggleCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+      const cartCount = document.getElementById("cart-count");
+      cartItems.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price * item.qty;
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <span>${item.name} x ${item.qty}</span>
+            <div class="cart-actions">
+              <button onclick="changeQty(${index}, 1)">+</button>
+              <button onclick="changeQty(${index}, -1)">−</button>
+              <button onclick="removeItem(${index})">🗑️</button>
+            </div>
+          </div>
+        `;
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = cart.reduce((acc, item) => acc + item.qty, 0);
+      document.getElementById("checkoutBtn").href = `https://instagram.com/direct/new?text=Hi+Sycko!+I+want+to+order:+${cart.map(i => i.name + ' x' + i.qty).join(', ')}`;
+    }
+
+    function changeQty(index, delta) {
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) cart.splice(index, 1);
+      saveCart();
+      updateCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCart();
+    }
+
+    function toggleCart() {
+      const cartModal = document.getElementById("cartModal");
+      cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
+    }
+
+    // Instagram Scroll Popup
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500 && !localStorage.getItem("instaShown")) {
+        openSocialPopup();
+        localStorage.setItem("instaShown", true);
+      }
+    });
+
     function openSocialPopup() {
       document.getElementById("socialPopup").style.display = "flex";
     }
@@ -378,46 +535,29 @@
       document.getElementById("socialPopup").style.display = "none";
     }
 
-    // Shopping Cart Logic
-    let cart = [];
+    // Upload Background
+    function uploadBackground(input) {
+      const file = input.files[0];
+      if (!file) return;
 
-    function addToCart(productName, price) {
-      cart.push({ name: productName, price: price });
-      updateCart();
-      openCart();
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const url = e.target.result;
+        document.body.style.backgroundImage = `url('${url}')`;
+        localStorage.setItem("customBg", url);
+      };
+      reader.readAsDataURL(file);
     }
 
-    function updateCart() {
-      const cartItems = document.getElementById("cartItems");
-      const cartTotal = document.getElementById("cartTotal");
-      const cartCount = document.getElementById("cart-count");
-
-      cartItems.innerHTML = "";
-      let total = 0;
-
-      cart.forEach((item, index) => {
-        total += item.price;
-        cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>₹${item.price}</span></div>`;
-      });
-
-      cartTotal.textContent = total.toFixed(2);
-      cartCount.textContent = cart.length;
+    function resetBackground() {
+      document.body.style.backgroundImage = "none";
+      localStorage.removeItem("customBg");
     }
 
-    function toggleCart() {
-      const cartModal = document.getElementById("cartModal");
-      cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
-    }
-
-    function openCart() {
-      document.getElementById("cartModal").style.display = "block";
-    }
-
-    window.addEventListener("click", function(e){
-      const cartModal = document.getElementById("cartModal");
-      if (e.target == cartModal) {
-        cartModal.style.display = "none";
-      }
+    // Loader
+    window.addEventListener("load", () => {
+      document.getElementById("preloader").classList.add("loaded");
+      document.getElementById("mainContent").style.opacity = "1";
     });
   </script>
 
