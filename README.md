@@ -1,4 +1,3 @@
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,166 +5,231 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sycko - Luxury Gen Z Fashion</title>
   <style>
-    /* Reset & Base Styles */
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body {
+    body, html {
+      height: 100%;
       font-family: 'Poppins', sans-serif;
-      background-color: #0d0d0d;
-      color: #f2f2f2;
+      background: url('https://images.unsplash.com/photo-1606079942367-d4a3875f5b9c?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
       line-height: 1.6;
-      scroll-behavior: smooth;
     }
 
-    a {
-      text-decoration: none;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    /* Navigation */
+    nav.top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    nav.top-nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
       color: #00ffe7;
     }
 
-    img {
-      max-width: 100%;
-      display: block;
+    nav.top-nav .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    nav.top-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
     }
 
-    @keyframes glow {
-      0% { text-shadow: 0 0 5px #00ffe7; }
-      50% { text-shadow: 0 0 20px #00ffe7, 0 0 10px #ff4ecd; }
-      100% { text-shadow: 0 0 5px #00ffe7; }
+    nav.top-nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      nav.top-nav ul {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.95);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+      }
+
+      nav.top-nav ul.show {
+        display: flex;
+      }
+
+      nav.top-nav .menu-toggle {
+        display: block;
+      }
     }
 
     /* Hero Section */
-    .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #000000, #1a1a1a);
+    header.hero {
       text-align: center;
-      animation: fadeIn 2s ease-in-out;
+      padding: 8rem 2rem 4rem;
     }
 
-    .hero h1 {
+    header h1 {
       font-size: 3rem;
+      font-weight: 600;
+      color: #fff;
       margin-bottom: 1rem;
-      animation: glow 2s infinite alternate;
     }
 
-    .highlight {
-      color: #00ffe7;
-    }
-
-    .hero p {
+    header p {
       font-size: 1.2rem;
-      margin-bottom: 2rem;
       color: #ccc;
+      margin-bottom: 2rem;
     }
 
     .btn {
       display: inline-block;
-      padding: 0.8rem 1.5rem;
-      background: #00ffe7;
+      background: #fff;
       color: #000;
+      padding: 0.8rem 2rem;
       border-radius: 30px;
       font-weight: bold;
       transition: all 0.3s ease;
+      text-decoration: none;
     }
 
     .btn:hover {
-      background: #0fffc1;
-      transform: scale(1.05);
-    }
-
-    /* Sections */
-    section {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: #fff;
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      width: 60px;
-      height: 3px;
-      background: #00ffe7;
-      display: block;
-      margin: 0.5rem auto 2rem;
+      background: #f0f0f0;
+      transform: translateY(-2px);
     }
 
     /* Product Grid */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+    .products {
+      display: flex;
+      overflow-x: auto;
+      gap: 1.5rem;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 4rem;
     }
 
     .product-card {
-      background: #1a1a1a;
+      min-width: 280px;
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      scroll-snap-align: start;
+      transition: transform 0.2s ease;
     }
 
-    .product-card::before {
-      content: 'New Arrival';
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: #ff4ecd;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      font-weight: bold;
+    .product-card:hover {
+      transform: scale(1.03);
     }
 
     .product-card img {
       width: 100%;
       height: auto;
       object-fit: cover;
-      transition: transform 0.3s ease;
     }
 
-    .product-card:hover img {
-      transform: scale(1.1);
+    .product-info {
+      padding: 1.5rem;
     }
 
-    .product-card h3 {
-      padding: 1rem;
+    .product-info h3 {
       font-size: 1.2rem;
-      color: #fff;
+      margin-bottom: 0.5rem;
     }
 
-    .product-card p {
-      padding: 0 1rem 0.5rem;
+    .product-info .price {
       color: #ccc;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
     }
 
-    .caption {
+    .product-info .caption {
       font-size: 0.9rem;
       color: #aaa;
-      padding: 0 1rem 1rem;
+      margin-bottom: 1rem;
     }
 
-    /* Product Popup */
+    .sizes {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    /* Shopping Cart Modal */
+    .cart-icon {
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-left: 1rem;
+    }
+
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      width: 300px;
+      background: #111;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0, 255, 231, 0.3);
+      z-index: 999;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .cart-total {
+      text-align: right;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    /* Popup Styles */
     .popup {
       display: none;
       position: fixed;
@@ -173,277 +237,216 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
       justify-content: center;
       align-items: center;
+      overflow-y: auto;
     }
 
     .popup-content {
-      background: #1a1a1a;
+      background: #111;
       color: #fff;
       padding: 2rem;
       border-radius: 10px;
-      max-width: 800px;
+      max-width: 600px;
       width: 90%;
+      position: relative;
       text-align: center;
+      margin: 2rem auto;
     }
 
     .popup-close {
       position: absolute;
       top: 10px;
-      right: 10px;
-      font-size: 2rem;
-      cursor: pointer;
-      color: #fff;
-    }
-
-    /* Sizes and Price */
-    .sizes {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-
-    .price {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #ff4ecd;
-    }
-
-    /* Instagram Section */
-    .instagram {
-      background: #111;
-      text-align: center;
-      padding: 3rem 2rem;
-    }
-
-    .instagram .btn {
-      background: #ff4ecd;
-      color: #fff;
-    }
-
-    .instagram .btn:hover {
-      background: #ff6ee2;
-    }
-
-    /* Contact Section */
-    .contact {
-      text-align: center;
-    }
-
-    .contact .btn {
-      background: #ff4ecd;
-      color: #fff;
-    }
-
-    .contact .btn:hover {
-      background: #ff6ee2;
-    }
-
-    /* Chatbot Widget */
-    .chatbot {
-      position: fixed;
-      bottom: 20px;
       right: 20px;
-      z-index: 1000;
-    }
-
-    .chatbot button {
-      background: #00ffe7;
-      color: #000;
-      border: none;
-      padding: 1rem;
-      border-radius: 50%;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      color: #fff;
       cursor: pointer;
-      box-shadow: 0 0 15px #00ffe7;
-      transition: transform 0.2s ease;
     }
 
-    .chatbot button:hover {
-      transform: scale(1.1);
+    .popup img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
     }
 
-    .chatbot-window {
-      position: absolute;
-      bottom: 70px;
-      right: 0;
-      width: 280px;
-      background: #1a1a1a;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 255, 231, 0.3);
-      display: none;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .chat-header {
-      background: #111;
-      padding: 1rem;
+    footer.footer {
+      margin-top: 4rem;
       text-align: center;
-      font-weight: bold;
-      color: #fff;
-      border-bottom: 1px solid #333;
-    }
-
-    .chat-body {
-      padding: 1rem;
-      font-size: 0.95rem;
-      color: #ccc;
-    }
-
-    .chat-link {
-      display: block;
-      margin-top: 1rem;
-      background: #ff4ecd;
-      color: #fff;
-      padding: 0.6rem 1rem;
-      border-radius: 30px;
-      text-align: center;
-      transition: background 0.3s ease;
-    }
-
-    .chat-link:hover {
-      background: #ff6ee2;
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      background: #000;
-      color: #666;
       font-size: 0.9rem;
+      color: #555;
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
-      .hero h1 {
+      header h1 {
         font-size: 2rem;
       }
 
-      .section-title {
-        font-size: 1.5rem;
+      .btn {
+        font-size: 0.9rem;
       }
 
-      .product-card h3 {
-        font-size: 1rem;
+      .popup-content {
+        margin: 1rem auto;
+        padding: 1rem;
       }
 
-      .chatbot-window {
-        width: 240px;
+      .popup img {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1>Welcome to <span class="highlight">Sycko</span></h1>
-      <p>Luxury meets Gen Z fashion.</p>
-      <a href="#products" class="btn">Shop Now</a>
-    </div>
-  </header>
+  <div class="overlay"></div>
 
-  <!-- Products -->
-  <section id="products" class="products">
-    <h2 class="section-title">Featured Collections</h2>
-    <div class="product-grid">
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="logo">Sycko</div>
+    <div class="cart-icon" onclick="toggleCart()">🛒 (<span id="cart-count">0</span>)</div>
+    <ul id="menu">
+      <li><a href="#products">Shop</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+  </nav>
+
+  <div class="content">
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <h1>Sycko</h1>
+      <p>Where luxury meets Gen Z fashion.</p>
+      <a href="#products" class="btn">Shop Now</a>
+    </header>
+
+    <!-- Products -->
+    <section id="products" class="products">
       <!-- Product 1 -->
       <div class="product-card" onclick="openPopup('popup1')">
-        <img src="https://via.placeholder.com/300x400?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
-        <h3>Stranger Things T-Shirt</h3>
-        <p class="price">₹799</p>
-        <p class="caption">Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</p>
+        <img src="https://via.placeholder.com/600x800?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
+        <div class="product-info">
+          <h3>Stranger Things T-Shirt</h3>
+          <div class="price">₹799</div>
+          <div class="caption">Elevated comfort in premium bio-cotton, inspired by the Upside Down.</div>
+          <div class="sizes">Sizes: Small | Medium | Large</div>
+          <div class="note">Order via Instagram only</div>
+        </div>
       </div>
 
       <!-- Product 2 -->
       <div class="product-card" onclick="openPopup('popup2')">
-        <img src="https://via.placeholder.com/300x400?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
-        <h3>Minecraft T-Shirt</h3>
+        <img src="https://via.placeholder.com/600x800?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
+        <div class="product-info">
+          <h3>Minecraft T-Shirt</h3>
+          <div class="price">₹749</div>
+          <div class="caption">Pixel-perfect design with breathable comfort. Crafted to stand out.</div>
+          <div class="sizes">Sizes: Small | Medium | Large</div>
+          <div class="note">Order via Instagram only</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popups -->
+    <div id="popup1" class="popup">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('popup1')">&times;</span>
+        <img src="https://via.placeholder.com/600x800?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
+        <h2>Stranger Things T-Shirt</h2>
+        <p class="price">₹799</p>
+        <p>Elevated comfort in premium bio-cotton, inspired by the Upside Down.</p>
+        <p><strong>Sizes:</strong> Small, Medium, Large</p>
+        <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
+        <button onclick="addToCart('Stranger Things T-Shirt', 799)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div id="popup2" class="popup">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('popup2')">&times;</span>
+        <img src="https://via.placeholder.com/600x800?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
+        <h2>Minecraft T-Shirt</h2>
         <p class="price">₹749</p>
-        <p class="caption">Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</p>
+        <p>Pixel-perfect design with breathable comfort. Crafted to stand out.</p>
+        <p><strong>Sizes:</strong> Small, Medium, Large</p>
+        <p><strong>Note:</strong> Orders accepted only through Instagram.</p>
+        <button onclick="addToCart('Minecraft T-Shirt', 749)">Add to Cart</button>
       </div>
     </div>
-  </section>
 
-  <!-- Popups -->
-  <div id="popup1" class="popup">
-    <div class="popup-content">
-      <span class="popup-close" onclick="closePopup('popup1')">&times;</span>
-      <img src="https://via.placeholder.com/600x800?text=Stranger+Things+T-Shirt" alt="Stranger Things T-Shirt" />
-      <h2>Stranger Things T-Shirt</h2>
-      <p class="price">₹799</p>
-      <p>Immerse yourself in elevated comfort with this relaxed-fit Stranger Things tee—crafted from premium heavy gauge bio-cotton for a soft, breathable feel. Inspired by the Upside Down, designed for all-day luxury.</p>
-      <p><strong>Sizes:</strong> Small, Medium, Large</p>
-      <p><strong>Note:</strong> We accept orders only through Instagram.</p>
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+      <h3>Your Cart</h3>
+      <div id="cartItems"></div>
+      <div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      &copy; 2025 Sycko. All rights reserved.
+    </footer>
+
   </div>
 
-  <div id="popup2" class="popup">
-    <div class="popup-content">
-      <span class="popup-close" onclick="closePopup('popup2')">&times;</span>
-      <img src="https://via.placeholder.com/600x800?text=Minecraft+T-Shirt" alt="Minecraft T-Shirt" />
-      <h2>Minecraft T-Shirt</h2>
-      <p class="price">₹749</p>
-      <p>Built for real-world adventures—this relaxed-fit Minecraft tee is crafted from ultra-soft, heavy gauge bio-cotton, blending pixel-perfect design with all-day breathable comfort. Crafted to survive, styled to stand out.</p>
-      <p><strong>Sizes:</strong> Small, Medium, Large</p>
-      <p><strong>Note:</strong> We accept orders only through Instagram.</p>
-    </div>
-  </div>
-
-  <!-- Instagram CTA -->
-  <section class="instagram">
-    <h2 class="section-title">Follow Us @syckofashion</h2>
-    <p>Tag us in your looks & get featured!</p>
-    <a href="https://instagram.com/syckofashion" target="_blank" class="btn">Visit Instagram</a>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="contact">
-    <h2 class="section-title">Get In Touch</h2>
-    <p>We’d love to hear from you. Questions? Orders? Collaborations?</p>
-    <a href="mailto:hello@sycko.com" class="btn">Email Us</a>
-  </section>
-
-  <!-- Chatbot -->
-  <div class="chatbot">
-    <button id="chatbot-toggle"><i class="fas fa-comment-dots"></i></button>
-    <div class="chatbot-window" id="chatbot-window">
-      <div class="chat-header">Need help?</div>
-      <div class="chat-body">
-        <p>Hi 👋 How can we assist you today?</p>
-        <a href="https://instagram.com/syckofashion" target="_blank" class="chat-link">Message us on Instagram</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>&copy; 2025 Sycko. All rights reserved.</p>
-  </footer>
-
-  <!-- Font Awesome Icons -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
-
-  <!-- JavaScript for Popups and Chatbot -->
+  <!-- JavaScript -->
   <script>
-    // Popup Functionality
-    function openPopup(popupId) {
-      document.getElementById(popupId).style.display = 'flex';
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("show");
     }
 
-    function closePopup(popupId) {
-      document.getElementById(popupId).style.display = 'none';
+    // Popup Functions
+    function openPopup(id) {
+      document.getElementById(id).style.display = "flex";
     }
 
-    // Chatbot Toggle
-    document.getElementById('chatbot-toggle').addEventListener('click', function () {
-      const chatbotWindow = document.getElementById('chatbot-window');
-      chatbotWindow.style.display = chatbotWindow.style.display === 'block' ? 'none' : 'block';
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    // Shopping Cart Logic
+    let cart = [];
+
+    function addToCart(productName, price) {
+      cart.push({ name: productName, price: price });
+      updateCart();
+      openCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+      const cartCount = document.getElementById("cart-count");
+
+      cartItems.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>₹${item.price}</span></div>`;
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() {
+      const cartModal = document.getElementById("cartModal");
+      cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
+    }
+
+    function openCart() {
+      document.getElementById("cartModal").style.display = "block";
+    }
+
+    window.addEventListener("click", function(e){
+      const cartModal = document.getElementById("cartModal");
+      if (e.target == cartModal) {
+        cartModal.style.display = "none";
+      }
     });
   </script>
 
